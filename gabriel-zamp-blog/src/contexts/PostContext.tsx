@@ -9,6 +9,7 @@ import { Post } from "@/types/Post";
 
 type PostContextType = {
   posts: Post[];
+  originalPosts: Post[];
   setPosts: (posts: Post[]) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
@@ -20,6 +21,7 @@ export const PostContext = createContext<PostContextType | null>(null);
 export const PostProvider = ({ children }: { children: ReactNode }) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
+  const [originalPosts, setOriginalPosts] = useState<Post[]>([]);
 
   function convertDate(isoDate) {
     const options = {
@@ -37,6 +39,7 @@ export const PostProvider = ({ children }: { children: ReactNode }) => {
       .then((res) => res.json())
       .then((json) => {
         setPosts(json);
+        setOriginalPosts(json);
         setLoading(false);
       })
       .catch(() => {
@@ -47,7 +50,14 @@ export const PostProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <PostContext.Provider
-      value={{ posts, setPosts, loading, setLoading, convertDate }}
+      value={{
+        posts,
+        setPosts,
+        loading,
+        setLoading,
+        convertDate,
+        originalPosts,
+      }}
     >
       {children}
     </PostContext.Provider>
