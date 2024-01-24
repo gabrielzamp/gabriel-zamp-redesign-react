@@ -27,7 +27,7 @@ export const AllBlogsList = () => {
 
       <PostsSearchBar />
 
-      <div className="md:grid sm:grid-cols-2 md:gap-4 lg:grid-cols-3 xl:w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-2 md:gap-4  xl:grid-cols-3 w-full">
         {loading && (
           <div
             className="flex justify-center col-span-3 w-full py-80"
@@ -54,9 +54,9 @@ export const AllBlogsList = () => {
         {!loading &&
           posts?.response?.docs?.length > 0 &&
           posts?.response?.docs?.slice(1)?.map((post, index) => (
-            <div className="pb-10" key={post.slug}>
+            <div className="pb-5 md:pb-2 w-full" key={post.slug}>
               <img
-                className="rounded-md h-56 w-80 object-cover xl:w-96"
+                className="rounded-md h-56 object-cover w-full xl:w-96"
                 src={post.coverPicture || defaultImageUrl}
                 alt=""
               />
